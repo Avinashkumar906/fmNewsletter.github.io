@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    @font-face {
+      font-family: rBold;
+      src: url(./assets/fonts/Roboto-Bold.ttf);
+      font-weight: bold;
+    }
+
+    @font-face {
+      font-family: rRegular;
+      src: url(./assets/fonts/Roboto-Regular.ttf);
+    }
+
+    .attribution {
+      position: fixed;
+      font-size: 11px;
+      text-align: center;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      padding: 2px;
+      color: black;
+      background-color: whitesmoke;
+    }
+
+    .attribution a {
+      color: black;
+    }
+
+    body,
+    html {
+      height: 100vh;
+      width: 100vw;
+      padding: 0;
+      margin: 0;
+      font-family: rRegular;
+      color: rgb(35 39 66);
+    }
+
+    .mainContainer {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      background-color: rgb(54 56 77);
+    }
+
+    .formContainer {
+      width: 100%;
+      max-width: 46rem;
+      background-color: white;
+      display: flex;
+      flex-direction: row;
+      border-radius: 1rem;
+    }
+
+    .successContainer {
+      display: none;
+      width: 100%;
+      max-width: 20rem;
+      background-color: white;
+      /* display: flex; */
+      flex-direction: column;
+      border-radius: 1rem;
+    }
+
+    .formGroup,
+    .bannnerContainer {
+      width: 50%;
+      padding: 1rem;
+    }
+
+    .heading {
+      font-size: 2.5rem;
+      font-family: rBold;
+      margin-bottom: 1rem;
+    }
+
+    .paragraph {
+      font-size: .75rem;
+      margin-bottom: .5rem;
+      font-weight: 500;
+      /* font-family: rBold; */
+    }
+
+    .icon {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      margin-right: .5rem;
+    }
+
+    .p-2 {
+      padding: 2rem;
+    }
+
+    .mb-1 {
+      margin-bottom: 1rem;
+    }
+
+    .mb-2 {
+      margin-bottom: 2rem;
+    }
+
+    .flex {
+      display: flex;
+    }
+
+    .flex-row {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .formControl label {
+      font-size: .8rem;
+      display: block;
+      font-family: rBold;
+    }
+
+    .formControl {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .formControl input,
+    button {
+      margin: .5rem 0;
+      outline: none;
+      border: 1px solid rgb(145 144 153);
+      width: 100%;
+      padding: 1rem;
+      border-radius: .5rem;
+      /* color: rgba(0, 0, 0, 0.8); */
+    }
+
+    .errormessage {
+      top: 0;
+      right: 0;
+      display: none;
+      transition: all .5;
+      font-size: .8rem;
+      font-family: rBold;
+      position: absolute;
+      color: rgb(238 123 116);
+    }
+
+    .formControl.error .errormessage {
+      display: block;
+    }
+
+    .formControl.error input {
+      border-color: rgb(238 123 116);
+      background-color: aliceblue;
+    }
+
+    button {
+      background-color: rgb(35 39 66);
+      color: white;
+      font-family: rBold;
+      cursor: pointer;
+    }
+
+    .bannnerContainer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+
+    input::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: rgb(145 144 153);
+    }
+
+    @media screen and (max-width: 667px) {
+      .mainContainer {
+        align-items: flex-start;
+        overflow-x: hidden;
+      }
+
+      .formContainer {
+        flex-direction: column;
+        border-radius: 0;
+      }
+
+      .formGroup,
+      .bannnerContainer {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0;
+      }
+
+      .formGroup {
+        order: 2;
+      }
+
+      .bannnerContainer {
+        order: 1;
+        margin-bottom: 1rem;
+      }
+
+      .bannnerContainer img {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+
+      .successContainer {
+        /* display: flex; */
+        border-radius: 0;
+        height: 100%;
+        max-width: unset;
+      }
+
+      .successContainer .mobileView {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sign-up form start -->
+  <div class="mainContainer">
+    <div class="formContainer" id="formPage">
+      <div class="formGroup">
+        <div class="p-2">
+          <div class="heading">Stay updated!</div>
+          <div class="paragraph mb-1">Join 60,000+ product managers receiving monthly updates on:</div>
+          <div class="list paragraph mb-1">
+            <div class="flex flex-row" style="margin-bottom: .5rem;">
+              <div class="icon">
+                <img src="./assets/images/icon-list.svg" style="width: 1rem;" />
+              </div>
+              <div>Product discovery and building what matters</div>
+            </div>
+            <div class="flex flex-row" style="margin-bottom: .5rem;">
+              <div class="icon">
+                <img src="./assets/images/icon-list.svg" style="width: 1rem;" />
+              </div>
+              <div>Measuring to ensure updates are a success</div>
+            </div>
+            <div class="flex flex-row" style="margin-bottom: .5rem;">
+              <div class="icon">
+                <img src="./assets/images/icon-list.svg" style="width: 1rem;" />
+              </div>
+              <div>And much more!</div>
+            </div>
+          </div>
+          <div class="formControl" id="formField">
+            <div class="flex">
+              <label>Email address </label>
+            </div>
+            <div class="flex">
+              <input id="email" type="email" name="email" id="email" placeholder="email@company.com">
+            </div>
+            <div class="errormessage">
+              Valid email required
+            </div>
+          </div>
+          <div class="formControlSubmit">
+            <button onclick="validateForm()" class="subscribeBTNs" type="button">Subscribe to monthly
+              newsletter</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bannnerContainer">
+        <img src="./assets/images/illustration-sign-up-mobile.svg" alt="" class="imgContainer">
+      </div>
+    </div>
+    <!-- Success body starts -->
+    <div class="successContainer" id="success">
+      <div class="p-2 mobileView">
+        <div>
+          <div class="icon mb-2">
+            <img src="./assets/images/icon-list.svg" alt="" width="40px">
+          </div>
+          <div class="heading mb-1">Thanks for subscribing!</div>
+          <div class="paragraph mb-1" id="successMessage"></div>
+        </div>
+        <div>
+          <button onclick="dismiss()" class="subscribeBTNs" type="button">Dismiss message</button>
+        </div>
+      </div>
+    </div>
+    <!-- <div style="width: 100%;">
+      test</div> -->
+  </div>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://www.frontendmentor.io/profile/Avinashkumar906">Avinash</a>.
+  </div>
+
+
+  <script>
+    function validateForm() {
+      let email = document.getElementById('email').value;
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        document.getElementById('formPage').style.display = 'none';
+        document.getElementById('success').style.display = 'flex';
+        document.getElementById('successMessage').innerHTML = "A confirmation email has been sent to <strong>" + email + "</strong>. Please open it and click the button inside to confirm your subscription.";
+        return;
+      }
+      document.getElementById('formField').classList.add('error');
+    }
+
+    function dismiss(email) {
+      document.getElementById('success').style.display = 'none';
+      document.getElementById('formPage').style.display = 'flex';
+    }
+  </script>
+
+</body>
+
+</html>
